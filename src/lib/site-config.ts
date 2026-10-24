@@ -3,7 +3,7 @@ export const siteConfig = {
   title: "Engineering Manager",
   tagline:
     "Engineering Manager by day, builder on the side — websites, web apps and test-automation tools, built end to end with a quality-first mindset.",
-  url: "https://madalincotetiu.dev",
+  url: "https://cotetiu-madalin-portfolio.vercel.app",
   email: "cotetiumadalin@gmail.com",
   location: "Remote",
   social: {
