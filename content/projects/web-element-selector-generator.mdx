@@ -1,0 +1,54 @@
+---
+title: Web Element Selector Generator
+description: Generate CSS/XPath selectors for elements or a whole page, with ready-to-paste Selenium, Playwright, and Cypress code snippets.
+category: Browser Extensions
+technologies:
+  - JavaScript
+  - Chrome & Firefox Extensions (Manifest V3)
+  - Playwright
+  - Selenium
+  - Cypress
+coverImage: /images/projects/web-element-selector-generator/cover.png
+gallery:
+  - path: /images/projects/web-element-selector-generator/selectors.png
+    alt: 8 CSS/XPath locator strategies generated for a picked element
+  - path: /images/projects/web-element-selector-generator/code-snippets.png
+    alt: Ready-to-paste Selenium, Playwright, Cypress, and WebdriverIO code snippets
+  - path: /images/projects/web-element-selector-generator/full-page-scan.png
+    alt: Full-page scan side panel with category filters
+  - path: /images/projects/web-element-selector-generator/export.png
+    alt: Export every scanned selector as JSON or CSV
+  - path: /images/projects/web-element-selector-generator/settings.png
+    alt: Settings page for attribute priority and default snippet framework
+githubUrl: https://github.com/madalincmc/web-element-selector
+liveUrl: https://chromewebstore.google.com/detail/web-element-selector-gene/njnpnfbnkpccabdjcgmgambggjnmbnad
+firefoxUrl: https://addons.mozilla.org/en-US/firefox/addon/web-element-selector-generator/
+featured: true
+publishedAt: 2025-08-01
+---
+
+A Chrome and Firefox (Manifest V3) extension that turns any element — or an entire page — into ready-to-use CSS, XPath, ARIA, and Playwright locators, plus copy-paste code snippets for Selenium, Playwright, Cypress, and WebdriverIO. Built for test automation, web scraping, and debugging.
+
+## Features
+
+- 8 locator strategies per element: CSS relative/absolute, XPath relative/absolute, CSS attribute-contains, XPath text-contains, ARIA role/name selector, and Playwright locator code, with a "recommended" badge highlighting the most robust option
+- **Full-page scan**: a side panel that scans every interactive element on the page in one pass, across same-origin *and* cross-origin iframes, with search/filter, hover-to-highlight, and multi-select
+- **Code snippets** for the most common test-automation stacks — Selenium (Java/Python/C#/JS), Playwright (JS-TS/Python/Java/C#), Cypress, and WebdriverIO — per element or as a ready-to-paste Page Object class for a batch of selected elements
+- Works inside open shadow roots and same-origin iframes
+- "Validate All" checks every generated selector live against the page and reports match counts
+- Per-tab selection history, a right-click context menu entry, and an `Alt+Shift+E` keyboard shortcut
+- Configurable attribute priority order, default snippet framework/language, and JSON/CSV export of selection history
+- Everything runs locally — no data ever leaves the browser
+
+## How it works
+
+The extension is split into six parts: a content script injected into every frame that builds all 8 locator strategies and powers the full-page scan (including cross-origin iframes, since each frame's content script runs independently); a background service worker that relays messages, keeps per-tab history, and orchestrates scans across frames; the popup and side-panel UIs; a shared snippet generator for the supported test frameworks; and a settings page for attribute priority and defaults.
+
+## Use cases
+
+- Writing test automation code without hand-crafting locators in devtools
+- Bootstrapping a Page Object Model by scanning a page once and exporting a full class skeleton
+- QA sanity-checking a selector's stability before handing it to an automation engineer
+- Web scraping — grabbing a unique CSS/XPath path to a data element, or scanning a whole listing page at once
+- Accessibility auditing via the ARIA role/name output
+- Debugging elements inside shadow DOM or embedded iframes, where devtools' own "copy selector" falls short

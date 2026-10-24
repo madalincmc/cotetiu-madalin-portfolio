@@ -1,0 +1,86 @@
+---
+title: SnapBudget
+description: Photograph a receipt and OCR turns it into a categorized expense — plus budgets that flag an overrun days before it happens, recurring bills, shared household totals, and a twelve-month view of where the money goes.
+category: Applications
+technologies:
+  - Next.js
+  - TypeScript
+  - Supabase
+  - Google Vision API
+  - PostgreSQL
+  - Tailwind CSS
+  - shadcn/ui
+  - Base UI
+  - Resend
+  - Vercel
+coverImage: /images/projects/snapbudget/cover.png
+gallery:
+  - path: /images/projects/snapbudget/dashboard-overview.jpg
+    alt: Dashboard — the month total at 86% of a 3 400 lei budget, the change on the previous month, top category and biggest expense, above a stacked composition bar
+  - path: /images/projects/snapbudget/dashboard-trend.jpg
+    alt: Per-category spending with budget ticks and an over-limit amount in red, above a 30-day column chart with a dashed daily-average line and the peak day labelled
+  - path: /images/projects/snapbudget/budgets.jpg
+    alt: Budgets — a monthly total limit with what's left and the projected month-end at the current pace, per-category limits below, and a household / just-me toggle
+  - path: /images/projects/snapbudget/analytics.jpg
+    alt: Analytics — calendar-year total and monthly average, a 12-month chart against a dashed average line with the heaviest month labelled, and per-category trends
+  - path: /images/projects/snapbudget/palettes.jpg
+    alt: The same dashboard in all four palettes — Smarald and Ocean in light, Apus and Levănțică in dark — with the category colours holding steady across every one
+  - path: /images/projects/snapbudget/history.jpg
+    alt: Expense history with merchant search, category and month filters, and badges marking manual and recurring entries
+  - path: /images/projects/snapbudget/receipt-scan.jpg
+    alt: Add receipt — photograph the receipt or pick one from the gallery, with a manual fallback
+  - path: /images/projects/snapbudget/recurring.jpg
+    alt: Recurring rules on monthly and yearly schedules, each pausable and resumable
+  - path: /images/projects/snapbudget/household.jpg
+    alt: Household — members and their roles, an email invite form, and a pending invitation
+  - path: /images/projects/snapbudget/login.jpg
+    alt: Sign-in — Google is the only account, with what the app does listed above the button
+githubUrl: https://github.com/madalincmc/snapbudget
+liveUrl: https://snapbudget.space/demo
+featured: true
+publishedAt: 2026-08-03
+---
+
+A receipt-first expense tracker. Photograph a receipt, OCR pulls out the merchant, amount, and date, and the app auto-categorizes the spend — no manual entry for the common case, and a bulk uploader for the days when it's twenty receipts at once rather than one. Everything else is covered too: cash and receipt-less spending go in through a manual form, recurring bills add themselves on a schedule, and a whole household can pool its expenses into one set of totals, invited by an actual email rather than a link someone has to be told about. On top of that sits the part that makes the numbers useful — a budget that says where the month lands at the current pace, and history that can be scoped to any stretch of time, not just a calendar month, to say whether it lands there every time. A `/demo` route serves the whole thing over invented data, so it can be tried with no account and nothing to sign up for.
+
+The product UI is in Romanian and amounts are in lei (RON), which is what the screenshots show; the codebase itself is English.
+
+## Features
+
+- **Receipt scanning** — photograph or upload a receipt; the Google Vision API extracts merchant, amount, and date, and the spend is auto-categorized. Nothing is written until the extraction is reviewed and accepted, so backing out of the review leaves no expense behind.
+- **Bulk upload** — up to 20 receipts in one go, three processed at a time so a slow one doesn't hold up the rest, with per-photo status and retry. There's no review step here — the trade for not confirming twenty photos one by one — so anything OCR couldn't price is flagged with a link straight to it.
+- **Manual expenses** — cash, parking, and anything else without a paper trail, sharing the same category tree as scanned receipts.
+- **Budgets** — a monthly limit on the total, per category, or both. The dashboard shows how much is used, what's left, and where the month lands at the current pace, so going over is visible days ahead rather than after the fact. In a household the budget can cover everyone's pooled spending or just your own.
+- **Recurring expenses** — rent, subscriptions, utilities, and insurance are generated automatically on a weekly, monthly, or yearly schedule; a rule can be paused, resumed, edited, or deleted at any time. Generated rows are ordinary expenses, so they flow into the dashboard, charts, and history unchanged.
+- **Household sharing** — create a household and invite members by an email that actually sends, naming the inviter and working signed out — through Google and back to the same invitation. Links expire after seven days and can be re-sent; owners can cancel invitations and remove members, members can leave. Everyone contributes from their own account and sees the combined totals, and the dashboard can be filtered down to one member or just yourself.
+- **Dashboard insights** — current vs. previous period, average daily spend, top category, biggest expense, and a 30-day chart that shades the current month apart from the previous one. Any past month can be selected, or an arbitrary date range, and every figure on the screen re-scopes to it together, compared against the equal-length stretch immediately before.
+- **Category detail** — opening a category from the dashboard drills into its own spending, and a receipt can be deleted from its own detail screen.
+- **12-month analysis** — each month against the average, the calendar-year total, the heaviest month, and a per-category trend showing which categories are creeping up.
+- **History** — search by merchant, filter by category and a named or custom date range, sort by date, with badges marking which rows arrived manually and which came from a recurring rule. The active filter survives opening an expense and coming back.
+- **Google sign-in** — auth through Supabase, so there's no separate SnapBudget password.
+
+## Design system
+
+Appearance is two independent choices: the theme (automatic, light, dark) and one of four palettes — Smarald, Ocean, Apus, Levănțică. A palette moves the accent hue and the trace of chroma in the neutrals, but every surface holds the same lightness across all four, so a screen tuned in one is tuned in all of them.
+
+Two colour families deliberately sit *outside* the palettes. Category hues encode identity — repainting Transport because someone changed the accent breaks what the reader already learned. Budget status is reserved for the same reason in reverse: binding "within budget" to the accent made the Apus palette read good → warning → over as coral → amber → red, three warm hues with no severity gradient between them.
+
+The colours are picked by validator rather than by eye. The eight category hues clear ΔE 12.9 (light) and 10.5 (dark) on the worst adjacent pair under simulated deuteranopia, and every text step clears 4.5:1 on its own surface.
+
+Both charts share one column component: hairline gridlines, a dashed average reference line, a direct label on the peak, and hover *or* arrow-key readout of any column — plus a visually hidden table of the same values, so no number is reachable only with a pointer. Category spending gets a stacked composition bar above the ranked list, and the two cross-highlight each other on hover. Motion is staggered entrances, a count-up on the hero figure, columns growing from the baseline, and route crossfades through React's `ViewTransition`, all switched off wholesale under `prefers-reduced-motion`.
+
+## Architecture
+
+Next.js App Router on Vercel, with Supabase providing Postgres, auth, and storage in a single project: receipt images land in Supabase Storage, extracted expenses in Postgres, and Google OAuth is wired straight into Supabase Auth.
+
+Four decisions did most of the work here. First, **row-level security on every table** — household access is enforced in Postgres rather than in the UI, so a member can only ever read the rows their household grants them, whatever the client asks for. Second, **`pg_cron` inside Postgres** for the nightly sweep that mints due recurring expenses: keeping the schedule in the database means no service-role key has to be handed to a background job to run it. Third, the **12-month analytics are summed by a Postgres function**, not in the app — a year of a shared household's expenses is exactly the set that should never be pulled into a serverless function to be added up there. Fourth, **theme and palette are written onto `<html>` before the first paint** by an inline script, so reopening the app never flashes the wrong colours; "system" stays a stored preference and never a rendered state, which keeps CSS from having to express "follow the OS".
+
+Receipt OCR calls the Google Vision API from a server route using a service-account key, keeping the credential off the client. Household invitation email goes through Resend, sent from a server route and sitting behind one module, so the relay underneath is swappable without touching the invitation flow that calls it.
+
+The pure logic — period bucketing and comparison, budget pace, the 12-month rollup, receipt parsing, date-range resolution, batch queueing, and invitation expiry — is covered by 243 unit tests that need no database. Five end-to-end scripts add 113 checks against a real Supabase project: household sharing and RLS, pooled household spending, recurring date maths, budget scoping, and the analytics aggregate. Each creates and cleans up its own temporary users, so they're safe to re-run. They stay out of CI on purpose — they need the service-role key, and on a public repository that key would have to live in Actions secrets.
+
+The `/demo` route reuses the same UI against fixture data instead of a Supabase session, so it needed no second copy of the dashboard, history, or household screens to build.
+
+## Stack
+
+Next.js 16 (App Router) + React 19 + TypeScript + Tailwind CSS v4 + shadcn/ui on Base UI on the frontend, Supabase (Postgres + Auth + Storage) as the backend with RLS throughout, `pg_cron` for scheduling, the Google Vision API for OCR, and Resend for household invitation email. Deployed on Vercel under a custom domain, with a preview deployment per pull request, `main` protected behind PRs, and GitHub Actions running format, lint, types, tests, and a build on every one.

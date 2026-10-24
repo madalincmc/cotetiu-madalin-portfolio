@@ -1,0 +1,55 @@
+---
+title: QA Automation Playground
+description: A practice website for learning UI test automation — a full e-commerce flow, test users that misbehave on purpose, flaky AJAX, iframes, shadow DOM and more. No setup needed.
+category: Automation
+technologies:
+  - HTML
+  - CSS
+  - JavaScript
+  - Playwright
+  - Selenium
+  - Cypress
+  - WebdriverIO
+  - Vercel
+coverImage: /images/projects/qa-automation-playground/cover.png
+gallery:
+  - path: /images/projects/qa-automation-playground/shop.png
+    alt: Shop — 24 products with search, category, price and rating filters, sorting and a grid/list toggle
+  - path: /images/projects/qa-automation-playground/product.png
+    alt: Product page with colour swatches, a stock-limited quantity stepper and details/reviews/shipping tabs
+  - path: /images/projects/qa-automation-playground/elements.png
+    alt: Elements & Forms — text inputs, read-only and disabled fields, and click/double-click/right-click buttons
+  - path: /images/projects/qa-automation-playground/tables.png
+    alt: Web Tables — a static table with totals and an employees table with search, pagination and CRUD
+  - path: /images/projects/qa-automation-playground/dynamic.png
+    alt: Dynamic content & waits — delayed loading, elements enabled after 5 seconds and dynamic IDs
+  - path: /images/projects/qa-automation-playground/frames.png
+    alt: Frames, windows & Shadow DOM — an iframe form that talks to the parent page and nested frames
+githubUrl: https://github.com/madalincmc/auto-test-site
+liveUrl: https://auto-test-site.vercel.app
+featured: true
+publishedAt: 2026-09-30
+---
+
+A practice website for learning UI test automation with Selenium, Playwright, Cypress, WebdriverIO or any other tool. Most demo sites cover either a happy-path shop or a page of isolated widgets; this one covers both — realistic end-to-end flows plus deliberately tricky edge cases.
+
+## Features
+
+- **A full e-commerce flow**: register → log in → browse → cart → multi-step checkout → order history → profile, with auth-protected pages that redirect back after login
+- **Built-in test personas** that behave differently: a locked-out user, a slow user, a `problem_user` whose sorting silently does nothing, and an `error_user` whose orders fail on the server
+- **Test data for every path**: payment cards for success, declined and insufficient-funds payments, plus valid, expired and minimum-spend coupons
+- **Five playground pages**: elements and forms, web tables with CRUD and merged cells, interactions (alerts, drag & drop, hover, keyboard), dynamic content and waits, and frames, windows and shadow DOM
+- **Realistic flakiness**: simulated AJAX with random latency where 20% of requests fail with a 503, stale elements, dynamic IDs and an overlay that blocks clicks
+- **Stable test hooks** — about 280 unique `data-testid` attributes plus semantic IDs and ARIA roles, with some sections left without hooks on purpose so you have to work for the locator
+
+## How it works
+
+Plain HTML, CSS and vanilla JavaScript with no framework, build step or backend. All state — users, cart, orders — lives in `localStorage`, and a single button resets it between test runs. It's deployed as a static site on Vercel, so anyone can open it and start writing tests immediately.
+
+## Use cases
+
+- Learning UI test automation from scratch on realistic, stable pages
+- Practising locator strategies: CSS, XPath axes, role-based and test-id selectors
+- Writing explicit waits and retries against genuinely flaky behaviour
+- Running workshops or interview exercises without setting up a test environment
+- Trying out a new automation framework against a known set of scenarios

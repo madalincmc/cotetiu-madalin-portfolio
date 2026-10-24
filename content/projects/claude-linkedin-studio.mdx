@@ -1,0 +1,62 @@
+---
+title: Claude LinkedIn Studio
+description: Write, polish and publish LinkedIn posts without leaving Claude — a self-hosted MCP connector plus Claude Project templates that keep every post in your own voice.
+category: AI
+technologies:
+  - Next.js
+  - TypeScript
+  - MCP
+  - Claude
+  - OAuth 2.1
+  - Neon Postgres
+  - Drizzle ORM
+  - Vercel
+coverImage: /images/projects/claude-linkedin-studio/cover.png
+gallery:
+  - path: /images/projects/claude-linkedin-studio/hero.png
+    alt: An idea typed into Claude becomes a published LinkedIn post
+  - path: /images/projects/claude-linkedin-studio/idea-to-post.png
+    alt: A Claude chat turning an idea into a draft and publishing it, next to the resulting LinkedIn post
+  - path: /images/projects/claude-linkedin-studio/workflow.png
+    alt: "Workflow: share an idea, polish it, your voice, research and schedule, publish"
+githubUrl: https://github.com/madalincmc/claude-linkedin-studio
+featured: true
+publishedAt: 2026-10-24
+---
+
+An open-source toolkit for writing and publishing LinkedIn posts straight from Claude. Share a rough idea in a chat, Claude shapes it into a post in your voice, checks it against your real experience, and publishes it to your LinkedIn profile when you say "publish it". Everything runs on your own accounts — no extra AI API keys, no central server, no telemetry.
+
+## Features
+
+- **Ideas to drafts from any device**: drop a rough thought, a few bullets, a voice-note transcript or a link into a Claude chat on desktop or phone
+- **Iterative polishing**: one focused draft, then plain-language feedback ("shorter", "less formal", "lead with the second point") until it's right
+- **Your own voice**: role, opinions, writing style, real stories and boundaries live in five reference files plus Project instructions — and Claude can interview you to fill them in
+- **Strict authenticity rules**: no invented anecdotes, results, numbers or opinions; when a story is missing, Claude asks for one instead of making it up
+- **Research mode**: Claude looks into what's new in your field and drafts a post with sources listed and facts attributed, while the opinion stays yours
+- **Scheduled research and drafting**: recurring tasks like "every Monday, research my topics and draft one post for review" — a fresh draft is waiting for you, and you decide what goes live
+- **One-sentence publishing**: "publish it" sends the exact approved text to your feed; deleting a post works the same way, and accidental double posts are blocked
+
+## How it works
+
+The project has two halves. **The Claude side** is a Claude Project holding the instructions and reference files — drafting, feedback, research and scheduling all happen there. **The connector** is a small Next.js app you deploy to your own Vercel account. It stores your LinkedIn connection encrypted in Neon Postgres and exposes a remote MCP server with three tools: `linkedin_status`, `publish_post` and `delete_post`.
+
+Security is locked down by default, since the app can post publicly as you:
+
+- **Single owner**: the console uses Google sign-in (OpenID Connect with PKCE, state and nonce) and only admits one verified email
+- **Authenticated MCP endpoint**: claude.ai connects via OAuth 2.1 with Dynamic Client Registration, PKCE (S256) and rotating refresh tokens; Claude Code can use a static bearer token compared in constant time
+- **Secrets stay server-side**: the LinkedIn token is encrypted at rest with AES-256-GCM, and OAuth codes and tokens are stored only as SHA-256 hashes
+- **Minimal LinkedIn scopes** (`openid profile w_member_social`), one-click kill switches, and every publish attempt logged
+
+## Built within LinkedIn's rules
+
+- **Official API, with your consent**: posts go through LinkedIn's Posts API via the self-serve *Share on LinkedIn* product, after you authorize your own app with OAuth — no browser automation, cookies or scraping
+- **No automated posting**: LinkedIn's API Terms prohibit using the APIs to automate posting, so every post is published on your explicit request in a chat, and scheduled tasks only research and draft
+- **Your own app, your own agreement**: each user creates their own LinkedIn developer app and accepts LinkedIn's terms directly; the repo never sees anyone's data
+- **Only your own posts, minimal data**: the connector publishes and deletes posts on your profile — it never reads the feed, profiles, messages or connections — and stores only your member ID, an encrypted token and a log of what you published
+
+## Use cases
+
+- Turning half-formed ideas into consistent LinkedIn content without context-switching out of Claude
+- Keeping a personal brand authentic — every post grounded in your own stories and opinions
+- A weekly content routine where research and drafts are ready for review, and you approve every post
+- A reference implementation of a self-hosted, OAuth-secured remote MCP server on Next.js and Vercel
