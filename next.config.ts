@@ -7,11 +7,13 @@ const withMDX = createMDX();
 // which conflicts directly with this site's SSG-heavy architecture. A static policy is the
 // right tradeoff here — the only third-party origins below are Vercel's own
 // analytics/speed-insights collectors, which is exactly what's actually in use.
+// 'wasm-unsafe-eval' lets Pagefind (site search) compile its WebAssembly module; unlike
+// 'unsafe-eval' it doesn't re-enable eval()/new Function().
 const isDev = process.env.NODE_ENV === "development";
 
 const cspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""};
+  script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'${isDev ? " 'unsafe-eval'" : ""};
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;

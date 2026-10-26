@@ -105,7 +105,9 @@ export function SearchModal() {
           <CommandList>
             {status === "unavailable" && (
               <CommandEmpty>
-                Search index unavailable — run a production build first (`npm run build`).
+                {process.env.NODE_ENV === "development"
+                  ? "Search index unavailable — run a production build first (`npm run build`)."
+                  : "Search is unavailable right now. Please try again later."}
               </CommandEmpty>
             )}
             {status === "loading" && <CommandEmpty>Searching...</CommandEmpty>}
