@@ -1,16 +1,20 @@
-import { existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { ImageResponse } from "next/og";
 import { getAllPosts, getPostBySlug, postSlug, type Post } from "@/lib/content/blog";
 import type { PostCategory } from "@/lib/content/schemas";
-import { siteConfig } from "@/lib/site-config";
 
 // Usage:
 //   npm run blog:cover -- <slug>     render one post's cover (overwrites)
 //   npm run blog:cover -- --missing  render covers for every post whose coverImage file is absent
 //
 // Covers are drawn from code (next/og → PNG) so every post gets an on-brand image without an
-// external image service. The file lands at the post's `coverImage` path under public/.
+// external image service. They carry no text: the title already sits right above the cover on
+// the post page and below it on cards, so repeating it in the image just reads as a screenshot.
+//
+// If `content/blog/<slug>.cover.svg` exists, that illustration is drawn over the category
+// background; otherwise a geometric pattern seeded from the slug fills it. The PNG lands at the
+// post's `coverImage` path under public/.
 
 const WIDTH = 1200;
 const HEIGHT = 630;
@@ -33,15 +37,63 @@ const CATEGORY_COLORS: Record<PostCategory, [string, string]> = {
   Career: [BRAND.cyan, BRAND.amber],
 };
 
-function titleFontSize(title: string): number {
-  if (title.length <= 40) return 76;
-  if (title.length <= 65) return 64;
-  return 52;
+function illustrationPath(post: Post): string {
+  return path.join(process.cwd(), "content", "blog", `${postSlug(post)}.cover.svg`);
 }
 
-function Cover({ post }: { post: Post }) {
+/** Small deterministic PRNG (mulberry32) so a post's pattern never changes between runs. */
+function seededRandom(seed: string): () => number {
+  let state = 0;
+  for (const char of seed) state = (Math.imul(state, 31) + char.charCodeAt(0)) | 0;
+  return () => {
+    state = (state + 0x6d2b79f5) | 0;
+    let t = Math.imul(state ^ (state >>> 15), 1 | state);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+const PATTERN_COLUMNS = 12;
+const PATTERN_ROWS = 6;
+const PATTERN_CELL = 94;
+// Centres the grid: (1200 - 11 × 94) / 2 and (630 - 5 × 94) / 2.
+const PATTERN_INSET_X = 83;
+const PATTERN_INSET_Y = 80;
+
+/** A field of dots that thickens toward the top-right, in the category's two colours. */
+function Pattern({ post }: { post: Post }) {
   const [primary, secondary] = CATEGORY_COLORS[post.category];
-  const host = new URL(siteConfig.url).host;
+  const random = seededRandom(postSlug(post));
+  const dots = [];
+
+  for (let row = 0; row < PATTERN_ROWS; row++) {
+    for (let column = 0; column < PATTERN_COLUMNS; column++) {
+      const weight = (column / (PATTERN_COLUMNS - 1) + (1 - row / (PATTERN_ROWS - 1))) / 2;
+      if (random() > weight + 0.15) continue;
+      const size = 10 + Math.round(random() * 46 * weight);
+      dots.push(
+        <div
+          key={`${row}-${column}`}
+          style={{
+            position: "absolute",
+            left: PATTERN_INSET_X + column * PATTERN_CELL - size / 2,
+            top: PATTERN_INSET_Y + row * PATTERN_CELL - size / 2,
+            width: size,
+            height: size,
+            borderRadius: random() > 0.75 ? 12 : size,
+            backgroundColor: random() > 0.5 ? primary : secondary,
+            opacity: 0.25 + weight * 0.6,
+          }}
+        />,
+      );
+    }
+  }
+
+  return <div style={{ display: "flex", position: "absolute", inset: 0 }}>{dots}</div>;
+}
+
+function Cover({ post, illustration }: { post: Post; illustration: string | null }) {
+  const [primary, secondary] = CATEGORY_COLORS[post.category];
 
   return (
     <div
@@ -49,68 +101,17 @@ function Cover({ post }: { post: Post }) {
         width: "100%",
         height: "100%",
         display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        padding: "72px 80px",
+        position: "relative",
         backgroundColor: "#09090b",
-        backgroundImage: `radial-gradient(circle at 88% 12%, ${primary}55 0%, transparent 45%), radial-gradient(circle at 8% 100%, ${secondary}40 0%, transparent 50%)`,
-        color: "#fafafa",
-        fontFamily: "sans-serif",
+        backgroundImage: `radial-gradient(circle at 85% 15%, ${primary}55 0%, transparent 50%), radial-gradient(circle at 10% 95%, ${secondary}40 0%, transparent 55%)`,
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 24 }}>
-        <div style={{ display: "flex", color: primary, letterSpacing: 4 }}>
-          {`// ${post.category.toUpperCase()}`}
-        </div>
-      </div>
-
-      <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
-        <div
-          style={{
-            display: "flex",
-            width: 120,
-            height: 8,
-            borderRadius: 4,
-            backgroundImage: `linear-gradient(90deg, ${primary}, ${secondary})`,
-          }}
-        />
-        <div
-          style={{
-            display: "flex",
-            fontSize: titleFontSize(post.title),
-            fontWeight: 700,
-            lineHeight: 1.1,
-            letterSpacing: -1.5,
-            maxWidth: 1000,
-          }}
-        >
-          {post.title}
-        </div>
-      </div>
-
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div style={{ display: "flex", gap: 12 }}>
-          {post.tags.slice(0, 3).map((tag) => (
-            <div
-              key={tag}
-              style={{
-                display: "flex",
-                padding: "6px 16px",
-                borderRadius: 999,
-                border: "1px solid #3f3f46",
-                color: "#d4d4d8",
-                fontSize: 22,
-              }}
-            >
-              {`#${tag}`}
-            </div>
-          ))}
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-          <div style={{ display: "flex", fontSize: 26, fontWeight: 700 }}>{siteConfig.name}</div>
-          <div style={{ display: "flex", fontSize: 20, color: "#a1a1aa" }}>{host}</div>
-        </div>
-      </div>
+      {illustration ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={illustration} width={WIDTH} height={HEIGHT} alt="" />
+      ) : (
+        <Pattern post={post} />
+      )}
     </div>
   );
 }
@@ -122,7 +123,15 @@ async function renderCover(post: Post): Promise<string> {
     );
   }
 
-  const response = new ImageResponse(<Cover post={post} />, { width: WIDTH, height: HEIGHT });
+  const svgPath = illustrationPath(post);
+  const illustration = existsSync(svgPath)
+    ? `data:image/svg+xml;base64,${readFileSync(svgPath).toString("base64")}`
+    : null;
+
+  const response = new ImageResponse(<Cover post={post} illustration={illustration} />, {
+    width: WIDTH,
+    height: HEIGHT,
+  });
   const outputPath = path.join(process.cwd(), "public", post.coverImage);
   mkdirSync(path.dirname(outputPath), { recursive: true });
   writeFileSync(outputPath, Buffer.from(await response.arrayBuffer()));
@@ -147,7 +156,10 @@ async function main() {
   }
 
   for (const post of targets) {
-    console.log(`Cover written: ${path.relative(process.cwd(), await renderCover(post))}`);
+    const source = existsSync(illustrationPath(post)) ? "illustration" : "pattern";
+    console.log(
+      `Cover written (${source}): ${path.relative(process.cwd(), await renderCover(post))}`,
+    );
   }
   if (targets.length === 0) console.log("Every post already has a cover.");
 }

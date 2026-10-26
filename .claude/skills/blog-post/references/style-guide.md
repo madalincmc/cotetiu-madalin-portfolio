@@ -53,7 +53,7 @@ Primary readers: software engineers, QA/test-automation engineers, engineering m
 - [ ] No banned words (see Voice), no emoji, no exclamation marks
 - [ ] Every code block has a language
 - [ ] Every image has descriptive alt text; diagrams follow `diagrams.md`
-- [ ] Cover generated and checked visually
+- [ ] Cover illustration drawn (no text), rendered, and checked visually
 - [ ] At least one internal link if a related project/post exists
 - [ ] All personal facts are either supplied by the user or marked `TODO(Madalin)`
 - [ ] `draft: true`

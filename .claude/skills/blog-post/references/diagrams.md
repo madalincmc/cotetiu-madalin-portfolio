@@ -1,4 +1,4 @@
-# Diagrams (hand-written SVG)
+# Diagrams and cover illustrations (hand-written SVG)
 
 Diagrams are plain `.svg` files in `public/images/blog/<slug>/`, embedded with Markdown image
 syntax. They render through a regular `<img>`, which means **the SVG cannot see the site's
@@ -73,3 +73,23 @@ The preview renderer has no system fonts, so text shows in a fallback serif and 
 wider than in a browser — judge layout and spacing from it, not typography. Then Read the PNG
 and look for: text overflowing boxes, labels overlapping arrows, anything
 closer than 40px to the card edge, and text too small to read. Fix and re-preview.
+
+## Cover illustrations
+
+Every post gets a cover illustration at `content/blog/<slug>.cover.svg` (outside `public/` —
+it's a source file; only the rendered PNG is served). `npm run blog:cover -- <slug>` draws the
+category-coloured background and places the illustration on top at 1200×630.
+
+- `viewBox="0 0 1200 630"`, **no background rect** (the script paints it) and **no text at
+  all** — not the title, not labels. Text-like content is drawn as rounded grey bars.
+- Show the post's idea as 2–4 recognisable objects, not an abstract decoration: a shield and a
+  checklist for a security post, a pipeline of stages for CI, stacked cards for a team topic.
+  Compose left → centre → right with a clear focal object in the middle.
+- Same palette as diagrams: objects `#18181b` / `#141418` with `#3f3f46`–`#52525b` strokes,
+  `rx` 14–18; one gradient (violet → cyan) on the focal object; green `#6fe88a` for "done/ok",
+  pink `#ff5c9d` for "open/missing", sparingly.
+- Keep everything inside x 80–1120, y 100–540: cards crop covers differently, and the edges
+  carry the background glow.
+- Objects must not touch or overlap unless they're deliberately stacked (like papers).
+
+Reference: `content/blog/audit-before-you-ship.cover.svg` (documents, shield, checklist).
