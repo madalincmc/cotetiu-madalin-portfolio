@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 460" role="img">
+  <title>Five pre-launch questions in sequence: what you collect, where it is stored, who has access, which laws apply, and how it holds up under attack, leading to a launch with a privacy policy and terms that match the answers</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#71717a"/>
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" rx="24" fill="#0f0f12"/>
+  <g font-family="ui-sans-serif, system-ui, sans-serif">
+    <rect x="40" y="50" width="192" height="230" rx="14" fill="#18181b" stroke="#3f3f46" stroke-width="2"/>
+    <text x="136" y="112" fill="#a77bff" font-size="24" font-weight="700" text-anchor="middle" letter-spacing="2">01</text>
+    <text x="136" y="165" fill="#fafafa" font-size="32" font-weight="700" text-anchor="middle">Collect</text>
+    <text x="136" y="214" fill="#a1a1aa" font-size="22" text-anchor="middle">What, and</text>
+    <text x="136" y="244" fill="#a1a1aa" font-size="22" text-anchor="middle">do you need it?</text>
+    <line x1="236" y1="165" x2="266" y2="165" stroke="#71717a" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="272" y="50" width="192" height="230" rx="14" fill="#18181b" stroke="#3f3f46" stroke-width="2"/>
+    <text x="368" y="112" fill="#a77bff" font-size="24" font-weight="700" text-anchor="middle" letter-spacing="2">02</text>
+    <text x="368" y="165" fill="#fafafa" font-size="32" font-weight="700" text-anchor="middle">Store</text>
+    <text x="368" y="214" fill="#a1a1aa" font-size="22" text-anchor="middle">Where does</text>
+    <text x="368" y="244" fill="#a1a1aa" font-size="22" text-anchor="middle">it end up?</text>
+    <line x1="468" y1="165" x2="498" y2="165" stroke="#71717a" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="504" y="50" width="192" height="230" rx="14" fill="#18181b" stroke="#3f3f46" stroke-width="2"/>
+    <text x="600" y="112" fill="#a77bff" font-size="24" font-weight="700" text-anchor="middle" letter-spacing="2">03</text>
+    <text x="600" y="165" fill="#fafafa" font-size="32" font-weight="700" text-anchor="middle">Access</text>
+    <text x="600" y="214" fill="#a1a1aa" font-size="22" text-anchor="middle">Who and what</text>
+    <text x="600" y="244" fill="#a1a1aa" font-size="22" text-anchor="middle">can read it?</text>
+    <line x1="700" y1="165" x2="730" y2="165" stroke="#71717a" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="736" y="50" width="192" height="230" rx="14" fill="#18181b" stroke="#3f3f46" stroke-width="2"/>
+    <text x="832" y="112" fill="#a77bff" font-size="24" font-weight="700" text-anchor="middle" letter-spacing="2">04</text>
+    <text x="832" y="165" fill="#fafafa" font-size="32" font-weight="700" text-anchor="middle">Law</text>
+    <text x="832" y="214" fill="#a1a1aa" font-size="22" text-anchor="middle">Which rules</text>
+    <text x="832" y="244" fill="#a1a1aa" font-size="22" text-anchor="middle">apply to you?</text>
+    <line x1="932" y1="165" x2="962" y2="165" stroke="#71717a" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="968" y="50" width="192" height="230" rx="14" fill="#18181b" stroke="#3f3f46" stroke-width="2"/>
+    <text x="1064" y="112" fill="#a77bff" font-size="24" font-weight="700" text-anchor="middle" letter-spacing="2">05</text>
+    <text x="1064" y="165" fill="#fafafa" font-size="32" font-weight="700" text-anchor="middle">Attack</text>
+    <text x="1064" y="214" fill="#a1a1aa" font-size="22" text-anchor="middle">How would</text>
+    <text x="1064" y="244" fill="#a1a1aa" font-size="22" text-anchor="middle">it hold up?</text>
+    <line x1="1064" y1="284" x2="1064" y2="322" stroke="#71717a" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="40" y="328" width="1120" height="92" rx="14" fill="#18181b" stroke="#6fe88a" stroke-width="3"/>
+    <text x="600" y="368" fill="#fafafa" font-size="30" font-weight="700" text-anchor="middle">Launch</text>
+    <text x="600" y="402" fill="#a1a1aa" font-size="22" text-anchor="middle">with a privacy policy and terms that describe what you found</text>
+  </g>
+</svg>
