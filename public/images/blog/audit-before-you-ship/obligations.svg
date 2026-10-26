@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" role="img">
+  <title>The obligations across a product's life: at launch a privacy policy, terms and refund policy; while running, access, export and deletion requests answered within one month; when charging, a 14-day withdrawal right and refunds within 14 days; at shutdown, advance notice, an export window, refunds for unused time and deletion of all data</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#71717a"/>
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" rx="24" fill="#0f0f12"/>
+  <g font-family="ui-sans-serif, system-ui, sans-serif">
+    <line x1="90" y1="60" x2="1110" y2="60" stroke="#71717a" stroke-width="3" marker-end="url(#arrow)"/>
+    <circle cx="178" cy="60" r="9" fill="#a77bff"/>
+    <rect x="50" y="100" width="256" height="350" rx="14" fill="#18181b" stroke="#3f3f46" stroke-width="2"/>
+    <text x="78" y="148" fill="#a77bff" font-size="24" font-weight="700" letter-spacing="2">01</text>
+    <text x="78" y="196" fill="#fafafa" font-size="32" font-weight="700">Launch</text>
+    <text x="78" y="256" fill="#a1a1aa" font-size="23">Privacy policy</text>
+    <text x="78" y="300" fill="#a1a1aa" font-size="23">Terms of service</text>
+    <text x="78" y="344" fill="#a1a1aa" font-size="23">Refund policy</text>
+    <text x="78" y="388" fill="#a1a1aa" font-size="23">Privacy contact</text>
+    <circle cx="459" cy="60" r="9" fill="#a77bff"/>
+    <rect x="331" y="100" width="256" height="350" rx="14" fill="#18181b" stroke="#3f3f46" stroke-width="2"/>
+    <text x="359" y="148" fill="#a77bff" font-size="24" font-weight="700" letter-spacing="2">02</text>
+    <text x="359" y="196" fill="#fafafa" font-size="32" font-weight="700">Running</text>
+    <text x="359" y="256" fill="#a1a1aa" font-size="23">Access &amp; export</text>
+    <text x="359" y="300" fill="#a1a1aa" font-size="23">Account deletion</text>
+    <text x="359" y="344" fill="#ffc35a" font-size="23">Reply in 1 month</text>
+    <circle cx="740" cy="60" r="9" fill="#a77bff"/>
+    <rect x="612" y="100" width="256" height="350" rx="14" fill="#18181b" stroke="#3f3f46" stroke-width="2"/>
+    <text x="640" y="148" fill="#a77bff" font-size="24" font-weight="700" letter-spacing="2">03</text>
+    <text x="640" y="196" fill="#fafafa" font-size="32" font-weight="700">Charging</text>
+    <text x="640" y="256" fill="#ffc35a" font-size="23">14-day withdrawal</text>
+    <text x="640" y="300" fill="#ffc35a" font-size="23">Refund in 14 days</text>
+    <text x="640" y="344" fill="#a1a1aa" font-size="23">Express consent</text>
+    <text x="640" y="388" fill="#a1a1aa" font-size="23">for digital goods</text>
+    <circle cx="1021" cy="60" r="9" fill="#a77bff"/>
+    <rect x="893" y="100" width="256" height="350" rx="14" fill="#18181b" stroke="#3f3f46" stroke-width="2"/>
+    <text x="921" y="148" fill="#a77bff" font-size="24" font-weight="700" letter-spacing="2">04</text>
+    <text x="921" y="196" fill="#fafafa" font-size="32" font-weight="700">Shutdown</text>
+    <text x="921" y="256" fill="#a1a1aa" font-size="23">Notice first</text>
+    <text x="921" y="300" fill="#a1a1aa" font-size="23">Export window</text>
+    <text x="921" y="344" fill="#a1a1aa" font-size="23">Refund unused time</text>
+    <text x="921" y="388" fill="#a1a1aa" font-size="23">Delete everything</text>
+  </g>
+</svg>

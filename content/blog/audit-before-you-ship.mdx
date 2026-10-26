@@ -1,6 +1,6 @@
 ---
 title: Your first lawsuit might arrive before your first subscriber
-description: Shipping an app is easy now. Five questions to answer before launch — what you collect, where it lives, who sees it, which laws apply, and how it breaks.
+description: Shipping an app is easy now. What to check before launch, and what you owe users after it — data access and deletion, refunds, and a clean shutdown.
 category: Engineering
 tags:
   - security
@@ -118,6 +118,112 @@ The rest of the hour went to checking that no keys were committed, that environm
 ignored, that the screenshots contained only demo data and no location metadata, and that the
 security headers were in place. None of it was hard. All of it was easy to skip.
 
+## After launch: what you owe the people using it
+
+The audit gets you to launch day. Running a public product adds obligations that don't show up
+until a user asks for something — and by then you need to already have an answer. Four come up
+again and again: giving people their data, deleting it, refunding them, and what happens when
+you shut the product down.
+
+![The obligations across a product's life: at launch a privacy policy, terms and refund policy; while running, access, export and deletion requests answered within one month; when charging, a 14-day withdrawal right and refunds within 14 days; at shutdown, advance notice, an export window, refunds for unused time and deletion of all data](/images/blog/audit-before-you-ship/obligations.svg "What you owe users, from launch to shutdown — EU rules as the reference point")
+
+The rules below are the EU's, because that's where I build and because they are among the most
+detailed. Other places have their own versions — California's privacy law, for example, also
+gives people the right to know what's collected and to have it deleted. The shape of the work
+is the same everywhere.
+
+### Let people get their data
+
+Under the GDPR, anyone can ask whether you hold data about them and get a copy of it
+([Article 15](https://gdpr-info.eu/art-15-gdpr/)), along with what you use it for, who you
+share it with and how long you keep it. Where they gave you the data under a contract or with
+their consent, they can also ask for it in a "structured, commonly used and machine-readable
+format" so they can take it elsewhere ([Article 20](https://gdpr-info.eu/art-20-gdpr/)).
+
+You have one month to respond, extendable by two more for complex cases if you tell the person
+why within the first month, and it has to be free unless requests are clearly excessive
+([Article 12](https://gdpr-info.eu/art-12-gdpr/)).
+
+What that means in practice:
+
+- **Know where everything is.** The data map from question 2 above is what makes an export
+  possible. If you can't list every table and service holding a user's data, you can't answer.
+- **Build the export once.** A JSON or CSV download of everything tied to an account, behind a
+  button in the settings page, turns a stressful manual job into a non-event.
+- **Publish a contact for privacy requests** in your privacy policy, and check it.
+
+### Let people delete their data
+
+People can also ask you to erase their data — when you no longer need it, when they withdraw
+consent, or when it was processed unlawfully
+([Article 17](https://gdpr-info.eu/art-17-gdpr/)). There are exceptions: you can keep what the
+law requires you to keep, such as invoices for tax purposes, or what you need to defend a legal
+claim. Everything else goes, without undue delay.
+
+"Delete" is where most side projects fall short, because data spreads:
+
+- **The main database** — including rows in other tables that reference the user.
+- **File storage** — uploaded images and documents, not just the database row pointing to them.
+- **Third-party services** — email provider, analytics, payment provider, error tracker. Each one
+  holds its own copy and has its own deletion process.
+- **Backups and logs** — decide how long they live, write it in the privacy policy, and let them
+  expire on schedule rather than keeping them forever.
+
+A "Delete my account" button that actually removes all of this is the cleanest answer. If
+deletion is manual, write the steps down so it's done the same way every time.
+
+### If you take money: refunds
+
+Selling online to consumers in the EU comes with a 14-day right of withdrawal for distance
+contracts: the buyer can change their mind without giving a reason. If you never told them
+about that right, the window doesn't close after 14 days — it extends by
+[12 months](https://www.legislation.gov.uk/eudr/2011/83/article/10). When someone withdraws, you
+have [14 days](https://www.legislation.gov.uk/eudr/2011/83/article/13) to refund them.
+
+Digital products have an exception, but only if you set it up properly. The right of withdrawal
+doesn't apply to digital content once delivery has started, provided the buyer gave
+[prior express consent and acknowledged](https://www.legislation.gov.uk/eudr/2011/83/article/16)
+that they lose the right — and you confirm that afterwards on a durable medium, such as an email
+receipt. A pre-ticked checkbox doesn't count.
+
+So before you add a "Buy" button:
+
+- **Write a refund policy** and link it from the checkout, not just the footer.
+- **Collect the consent explicitly** if you rely on the digital-content exception, and include
+  it in the receipt.
+- **Make refunds easy to request.** If the only way to get money back is through the bank, people
+  will use chargebacks — which cost you a fee each time and count against you with your payment
+  provider.
+- **Consider a merchant of record** — a payment platform that sells on your behalf and handles
+  VAT, invoices and refunds as the legal seller — if you don't want to run that side yourself.
+
+### When you shut it down
+
+Side projects end. That's normal — leaving users stranded isn't. Closing a product that people
+pay for or keep data in is a process, not a switch:
+
+1. **Announce it early.** Tell users by email, with a banner in the app, and on the website.
+   For a paid product, give at least as much notice as one billing cycle; more is better.
+2. **Stop new sign-ups and renewals** the day you announce, so nobody pays for something that's
+   ending.
+3. **Open an export window.** Give people time and a simple way to download what they put in.
+   For paid digital services in the EU, content users created has to be returned on request,
+   free of charge, within a reasonable time and in a commonly used, machine-readable format
+   ([Digital Content Directive, Article 16](https://www.legislation.gov.uk/eudr/2019/770/article/16)).
+4. **Refund unused prepaid time.** Keeping a year's subscription for a service that disappears
+   in month three is hard to defend to a customer, a payment provider or a court.
+5. **Delete everything at the end** — database, storage, third-party copies, backups — and
+   close the accounts with the services that held data on your behalf.
+
+The same thinking applies to big changes short of closing. In the EU, if you change a paid
+digital service in a way that makes it worse for users, you have to tell them in advance, and
+they can cancel free of charge within 30 days
+([Article 19](https://www.legislation.gov.uk/eudr/2019/770/article/19)).
+
+None of this works unless you can reach your users. Keep a verified email for every account,
+say in your terms that service notices go there, and don't let that list become marketing
+you'd be tempted to stop sending.
+
 ## Why it matters before the first subscriber
 
 GDPR fines go up to €20 million or 4% of worldwide annual turnover, whichever is higher, for
@@ -137,5 +243,8 @@ proper legal advice for the answers that apply to your product._
 - Before launch, write down what you collect, where it's stored, who can access it, which laws
   apply, and how it could be attacked.
 - Publish a privacy policy and terms that describe what your app actually does — not a template.
+- Build data export and account deletion before someone asks; you'll have a month to answer.
+- If you charge, write a refund policy, and handle the 14-day withdrawal right on purpose.
+- Plan the ending: notice, export window, refunds for unused time, then delete everything.
 - Your idea might be great, and you might already have a plan to monetize it. Just keep in mind
   you could get your first lawsuit before your first subscription.
