@@ -7,13 +7,12 @@ Next.js site. See [prd.md](./prd.md) for the product requirements and
 ## Stack
 
 Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · shadcn/ui · Motion ·
-Fumadocs MDX · Zod · Pagefind · `@react-pdf/renderer` · Resend + React Email · Cloudflare Turnstile
+Fumadocs MDX · Zod · Pagefind · `@react-pdf/renderer`
 
 ## Getting started
 
 ```bash
 npm install
-cp .env.example .env.local   # fill in Resend + Turnstile keys for the contact form
 npm run dev
 ```
 
@@ -42,13 +41,6 @@ All content lives outside `src/` and can be edited without touching application 
 | `npm run generate:resume-pdf`   | Regenerate the résumé PDF on its own                                                                        |
 | `npm run generate:search-index` | Rebuild the Pagefind index on its own                                                                       |
 
-## Environment variables
-
-See [`.env.example`](./.env.example) — `RESEND_API_KEY`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, and
-`TURNSTILE_SECRET_KEY` are required for the contact form to send email and verify submissions.
-
 ## Deployment
 
-Deployed on Vercel. Rate limiting on `/api/contact` has an in-code fixed-window fallback
-([`src/lib/rate-limit.ts`](./src/lib/rate-limit.ts)); pair it with a Vercel Firewall rate-limit
-rule on the same route for real protection across serverless instances.
+Deployed on Vercel.

@@ -5,18 +5,17 @@ const withMDX = createMDX();
 
 // Nonce-based CSP would force every page to render dynamically (no static generation),
 // which conflicts directly with this site's SSG-heavy architecture. A static policy is the
-// right tradeoff here — third-party origins below are exactly what's actually in use:
-// Cloudflare Turnstile (contact form) and Vercel's own analytics/speed-insights collectors.
+// right tradeoff here — the only third-party origins below are Vercel's own
+// analytics/speed-insights collectors, which is exactly what's actually in use.
 const isDev = process.env.NODE_ENV === "development";
 
 const cspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com${isDev ? " 'unsafe-eval'" : ""};
+  script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""};
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
-  connect-src 'self' https://challenges.cloudflare.com https://*.vercel-insights.com https://*.vercel-scripts.com;
-  frame-src https://challenges.cloudflare.com;
+  connect-src 'self' https://*.vercel-insights.com https://*.vercel-scripts.com;
   object-src 'none';
   base-uri 'self';
   form-action 'self';
