@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="shield" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a77bff"/>
+      <stop offset="1" stop-color="#5fd4f0"/>
+    </linearGradient>
+    <linearGradient id="shieldFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a77bff" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#5fd4f0" stop-opacity="0.06"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Terms & privacy documents, left -->
+  <g transform="translate(-50 0) rotate(-9 270 330)">
+    <rect x="150" y="170" width="240" height="310" rx="18" fill="#141418" stroke="#3f3f46" stroke-width="2"/>
+    <rect x="180" y="205" width="110" height="14" rx="7" fill="#52525b"/>
+    <rect x="180" y="245" width="180" height="10" rx="5" fill="#3f3f46"/>
+    <rect x="180" y="270" width="160" height="10" rx="5" fill="#3f3f46"/>
+    <rect x="180" y="295" width="175" height="10" rx="5" fill="#3f3f46"/>
+  </g>
+  <g transform="translate(-50 0) rotate(5 300 330)">
+    <rect x="185" y="160" width="240" height="320" rx="18" fill="#18181b" stroke="#52525b" stroke-width="2"/>
+    <rect x="215" y="195" width="120" height="16" rx="8" fill="#5fd4f0"/>
+    <rect x="215" y="240" width="180" height="10" rx="5" fill="#3f3f46"/>
+    <rect x="215" y="265" width="150" height="10" rx="5" fill="#3f3f46"/>
+    <rect x="215" y="290" width="170" height="10" rx="5" fill="#3f3f46"/>
+    <rect x="215" y="315" width="120" height="10" rx="5" fill="#3f3f46"/>
+    <rect x="215" y="355" width="180" height="10" rx="5" fill="#3f3f46"/>
+    <rect x="215" y="380" width="140" height="10" rx="5" fill="#3f3f46"/>
+    <rect x="215" y="420" width="70" height="26" rx="13" fill="none" stroke="#a77bff" stroke-width="2"/>
+  </g>
+
+  <!-- Shield, centre -->
+  <path d="M600 120 L775 185 V315 C775 425 700 490 600 525 C500 490 425 425 425 315 V185 Z"
+        fill="url(#shieldFill)" stroke="url(#shield)" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M600 165 L735 215 V318 C735 405 678 456 600 485 C522 456 465 405 465 318 V215 Z"
+        fill="none" stroke="#a77bff" stroke-opacity="0.35" stroke-width="2"/>
+  <path d="M535 322 L583 370 L672 270" fill="none" stroke="#6fe88a" stroke-width="18"
+        stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Pre-launch checklist, right -->
+  <rect x="820" y="150" width="270" height="330" rx="18" fill="#18181b" stroke="#52525b" stroke-width="2"/>
+  <g>
+    <circle cx="860" cy="205" r="15" fill="#6fe88a" fill-opacity="0.15" stroke="#6fe88a" stroke-width="3"/>
+    <path d="M853 205 L858 210 L868 199" fill="none" stroke="#6fe88a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="890" y="199" width="160" height="12" rx="6" fill="#3f3f46"/>
+
+    <circle cx="860" cy="265" r="15" fill="#6fe88a" fill-opacity="0.15" stroke="#6fe88a" stroke-width="3"/>
+    <path d="M853 265 L858 270 L868 259" fill="none" stroke="#6fe88a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="890" y="259" width="130" height="12" rx="6" fill="#3f3f46"/>
+
+    <circle cx="860" cy="325" r="15" fill="#6fe88a" fill-opacity="0.15" stroke="#6fe88a" stroke-width="3"/>
+    <path d="M853 325 L858 330 L868 319" fill="none" stroke="#6fe88a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="890" y="319" width="150" height="12" rx="6" fill="#3f3f46"/>
+
+    <circle cx="860" cy="385" r="15" fill="#6fe88a" fill-opacity="0.15" stroke="#6fe88a" stroke-width="3"/>
+    <path d="M853 385 L858 390 L868 379" fill="none" stroke="#6fe88a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="890" y="379" width="120" height="12" rx="6" fill="#3f3f46"/>
+
+    <circle cx="860" cy="445" r="15" fill="none" stroke="#ff5c9d" stroke-width="3"/>
+    <rect x="890" y="439" width="140" height="12" rx="6" fill="#3f3f46"/>
+  </g>
+
+  <!-- Connectors -->
+  <path d="M392 330 H418" stroke="#52525b" stroke-width="3" stroke-dasharray="6 8" stroke-linecap="round"/>
+  <path d="M782 330 H812" stroke="#52525b" stroke-width="3" stroke-dasharray="6 8" stroke-linecap="round"/>
+</svg>
