@@ -3,6 +3,9 @@ export interface NavItem {
   href: string;
 }
 
-export const primaryNav: NavItem[] = [{ label: "Projects", href: "/projects" }];
+export const primaryNav: NavItem[] = [
+  { label: "Projects", href: "/projects" },
+  { label: "Blog", href: "/blog" },
+];
 
 export const footerNav: NavItem[] = [...primaryNav, { label: "Contact", href: "/contact" }];

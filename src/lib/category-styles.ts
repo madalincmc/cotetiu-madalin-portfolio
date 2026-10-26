@@ -1,4 +1,4 @@
-import type { ProjectCategory } from "@/lib/content/schemas";
+import type { PostCategory, ProjectCategory } from "@/lib/content/schemas";
 
 // Each category gets its own brand color so cards, timeline nodes and badges stay
 // recognizable across the site. Class strings are written out in full so Tailwind sees them.
@@ -35,3 +35,12 @@ export const categoryStyles: Record<ProjectCategory, { text: string; badge: stri
       dot: "bg-brand-4 shadow-[0_0_16px] shadow-brand-4/70",
     },
   };
+
+export const postCategoryStyles: Record<PostCategory, { text: string; badge: string }> = {
+  Engineering: { text: "text-brand-1", badge: "border-brand-1/30 bg-brand-1/10 text-brand-1" },
+  Leadership: { text: "text-brand-5", badge: "border-brand-5/30 bg-brand-5/10 text-brand-5" },
+  "QA & Testing": { text: "text-brand-3", badge: "border-brand-3/30 bg-brand-3/10 text-brand-3" },
+  Automation: { text: "text-brand-2", badge: "border-brand-2/30 bg-brand-2/10 text-brand-2" },
+  AI: { text: "text-brand-4", badge: "border-brand-4/30 bg-brand-4/10 text-brand-4" },
+  Career: { text: "text-brand-2", badge: "border-brand-2/30 bg-brand-2/10 text-brand-2" },
+};

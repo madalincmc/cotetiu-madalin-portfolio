@@ -11,7 +11,9 @@
     "lint": "eslint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "generate:search-index": "node --import ./scripts/register-fumadocs.mjs --import tsx scripts/build-search-index.ts"
+    "generate:search-index": "node --import ./scripts/register-fumadocs.mjs --import tsx scripts/build-search-index.ts",
+    "blog:cover": "node --import ./scripts/register-fumadocs.mjs --import tsx scripts/generate-blog-cover.tsx",
+    "blog:preview-svg": "tsx scripts/preview-svg.tsx"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

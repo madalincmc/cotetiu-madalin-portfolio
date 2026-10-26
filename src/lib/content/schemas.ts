@@ -32,3 +32,29 @@ export const projectSchema = z.object({
 });
 
 export type ProjectFrontmatter = z.infer<typeof projectSchema>;
+
+export const POST_CATEGORIES = [
+  "Engineering",
+  "Leadership",
+  "QA & Testing",
+  "Automation",
+  "AI",
+  "Career",
+] as const;
+
+export type PostCategory = (typeof POST_CATEGORIES)[number];
+
+export const postSchema = z.object({
+  title: z.string(),
+  description: z.string().max(200),
+  category: z.enum(POST_CATEGORIES),
+  tags: z.array(z.string()).default([]),
+  coverImage: z.string(),
+  publishedAt: z.coerce.date(),
+  updatedAt: z.coerce.date().optional(),
+  // Drafts render under `next dev` (with a badge) so they can be reviewed, but are left out of
+  // production builds entirely: no page, no sitemap/RSS entry, no search record.
+  draft: z.boolean().default(false),
+});
+
+export type PostFrontmatter = z.infer<typeof postSchema>;
