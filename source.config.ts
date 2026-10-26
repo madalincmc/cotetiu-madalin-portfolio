@@ -12,5 +12,8 @@ export default defineConfig({
         dark: "github-dark-high-contrast",
       },
     },
+    // Keep image `src` as a plain public path instead of an `import` — the build scripts load
+    // content through Node, which can't import .png/.svg files, and MdxImage reads sizes itself.
+    remarkImageOptions: { useImport: false },
   },
 });

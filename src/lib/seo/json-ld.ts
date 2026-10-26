@@ -1,3 +1,5 @@
+import type { Post } from "@/lib/content/blog";
+import { postSlug } from "@/lib/content/blog";
 import type { Project } from "@/lib/content/projects";
 import { projectSlug } from "@/lib/content/projects";
 import { siteConfig } from "@/lib/site-config";
@@ -34,6 +36,24 @@ export function creativeWorkJsonLd(project: Project) {
     author: personRef,
     url,
     keywords: project.technologies.join(", "),
+  };
+}
+
+export function blogPostingJsonLd(post: Post) {
+  const url = `${siteConfig.url}/blog/${postSlug(post)}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    image: `${siteConfig.url}${post.coverImage}`,
+    datePublished: post.publishedAt.toISOString(),
+    dateModified: (post.updatedAt ?? post.publishedAt).toISOString(),
+    author: personRef,
+    url,
+    mainEntityOfPage: url,
+    keywords: post.tags.join(", "),
   };
 }
 

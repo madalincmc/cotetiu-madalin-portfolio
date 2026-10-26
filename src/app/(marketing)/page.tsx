@@ -5,6 +5,7 @@ import { Stats } from "@/components/sections/stats";
 import { TechMarquee } from "@/components/sections/tech-marquee";
 import { Principles } from "@/components/sections/principles";
 import { BuildLog } from "@/components/sections/build-log";
+import { LatestPosts } from "@/components/sections/latest-posts";
 import { FinalCta } from "@/components/sections/final-cta";
 import { siteConfig } from "@/lib/site-config";
 
@@ -35,6 +36,7 @@ export default function Home() {
       <FeaturedProjects />
       <Principles />
       <BuildLog />
+      <LatestPosts />
       <FinalCta />
     </>
   );

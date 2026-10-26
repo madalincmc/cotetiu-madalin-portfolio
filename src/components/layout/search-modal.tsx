@@ -94,11 +94,11 @@ export function SearchModal() {
         open={open}
         onOpenChange={setOpen}
         title="Search"
-        description="Search projects"
+        description="Search projects and posts"
       >
         <Command shouldFilter={false}>
           <CommandInput
-            placeholder="Search projects..."
+            placeholder="Search projects and posts..."
             value={query}
             onValueChange={onQueryChange}
           />
