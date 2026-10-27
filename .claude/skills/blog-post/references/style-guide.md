@@ -2,10 +2,13 @@
 
 ## Who is writing, for whom
 
-Madalin Cotetiu — Engineering Manager by day, builder on the side (websites, web apps, browser
-extensions, test-automation tools). Quality-first. The blog sits on his portfolio, so every
-post doubles as evidence of how he thinks: a hiring manager should come away with "this person
-has judgment", an engineer with "I can use this tomorrow".
+Madalin Cotetiu — engineering manager with a background in testing. Leads teams, is interested
+in AI, and builds side projects around problems they ran into themselves. The blog sits on the
+portfolio, so every post doubles as evidence of how Madalin thinks: a hiring manager should come
+away with "this person has judgment", an engineer with "I can use this tomorrow".
+
+**Don't oversell.** Describe the work at its real size: side projects are side projects, not
+products or a business; no "end to end", "quality-first", "flawlessly" or similar claims.
 
 Primary readers: software engineers, QA/test-automation engineers, engineering managers.
 

@@ -10,7 +10,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = buildMetadata({
   title: "Projects",
   description:
-    "Websites, applications, browser extensions, automation, open source, and AI projects.",
+    "Side projects built outside work: tools for testers and developers, a few apps and websites.",
   path: "/projects",
 });
 
@@ -46,11 +46,10 @@ export default async function ProjectsIndexPage({
             {"// "}Portfolio
           </p>
           <h1 className="text-5xl font-bold tracking-tight sm:text-7xl">
-            My <span className="text-gradient animate-gradient-x">projects</span>
+            Side <span className="text-gradient animate-gradient-x">projects</span>
           </h1>
           <p className="text-muted-foreground mt-5 max-w-2xl text-lg text-pretty sm:text-xl">
-            Websites, web apps, browser extensions and automation tools — each one designed, built
-            and deployed end to end.
+            Things I built outside work: tools for testers and developers, a few apps and websites.
           </p>
           <p className="mt-6 font-mono text-sm">
             <span className="text-brand-3">{projects.length}</span>{" "}

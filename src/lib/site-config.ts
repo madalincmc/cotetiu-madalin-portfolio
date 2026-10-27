@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Madalin Cotetiu",
   title: "Engineering Manager",
   tagline:
-    "Engineering Manager by day, builder on the side — websites, web apps and test-automation tools, built end to end with a quality-first mindset.",
+    "Engineering manager with a background in testing. I lead teams, I'm interested in AI, and I build side projects around problems I run into.",
   url: "https://cotetiu-madalin-portfolio.vercel.app",
   email: "cotetiumadalin@gmail.com",
   location: "Remote",
