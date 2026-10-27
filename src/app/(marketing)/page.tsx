@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/hero";
 import { FeaturedProjects } from "@/components/sections/featured-projects";
-import { Stats } from "@/components/sections/stats";
 import { TechMarquee } from "@/components/sections/tech-marquee";
 import { Principles } from "@/components/sections/principles";
 import { BuildLog } from "@/components/sections/build-log";
@@ -31,7 +30,6 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Stats />
       <TechMarquee />
       <FeaturedProjects />
       <Principles />

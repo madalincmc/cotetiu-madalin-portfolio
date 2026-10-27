@@ -4,12 +4,9 @@ import { Button } from "@/components/ui/button";
 import { GithubIcon, LinkedinIcon } from "@/components/icons/brand-icons";
 import { AuroraBackground } from "@/components/motion/aurora";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
-import { RotatingWords } from "@/components/motion/rotating-words";
 import { HeroTerminal } from "@/components/sections/hero-terminal";
 import { getAllProjects, projectSlug } from "@/lib/content/projects";
 import { siteConfig } from "@/lib/site-config";
-
-const ROTATING_WORDS = ["web apps", "dev tools", "extensions", "websites"];
 
 const socials = [
   { label: "GitHub", href: siteConfig.social.github, icon: GithubIcon },
@@ -39,23 +36,19 @@ export function Hero() {
               <span className="bg-brand-3 absolute inline-flex size-full animate-ping rounded-full opacity-75" />
               <span className="bg-brand-3 relative inline-flex size-2.5 rounded-full" />
             </span>
-            <span className="font-mono text-xs">
-              {projects.length} projects live · working on the next one
-            </span>
+            <span className="font-mono text-xs">{projects.length} side projects</span>
             <ArrowRight className="size-3.5" aria-hidden="true" />
           </Link>
 
           <h1 className="text-5xl leading-[1.05] font-bold tracking-tight sm:text-6xl xl:text-7xl">
-            I turn ideas into <RotatingWords words={ROTATING_WORDS} />
-            <br />
-            that work.
+            I lead teams and build things on the side.
           </h1>
 
           <p className="text-muted-foreground max-w-xl text-lg text-pretty sm:text-xl">
-            <span className="text-foreground font-semibold">{siteConfig.name}</span> —{" "}
-            {siteConfig.title}. I lead engineering teams and, on the side, build my own projects —
-            websites, web apps and QA tooling, each one built end to end with a quality-first
-            mindset.
+            <span className="text-foreground font-semibold">{siteConfig.name}</span>
+            {" — "}engineering manager with a background in testing. My side projects usually start
+            from a problem I ran into myself. I&apos;m also interested in AI and how it changes the
+            way teams build software.
           </p>
 
           <div className="flex flex-wrap items-center gap-3">
@@ -65,7 +58,7 @@ export function Hero() {
               nativeButton={false}
               render={<Link href="/projects" />}
             >
-              Explore the portfolio
+              See the projects
               <ArrowRight className="size-4" aria-hidden="true" />
             </Button>
             <Button
@@ -75,7 +68,7 @@ export function Hero() {
               nativeButton={false}
               render={<Link href="/contact" />}
             >
-              Let&apos;s talk
+              Contact
             </Button>
           </div>
 

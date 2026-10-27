@@ -1,36 +1,35 @@
-import { Layers, Rocket, ShieldCheck, Users } from "lucide-react";
+import { Bug, Lightbulb, Sparkles, Users } from "lucide-react";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import { SpotlightCard } from "@/components/motion/spotlight-card";
 import { SectionHeading } from "@/components/sections/section-heading";
 
 const principles = [
   {
-    icon: Rocket,
-    title: "Product thinking",
-    description:
-      "Every project starts from a real problem and is built to be used — then improved based on how it holds up.",
-    color: "from-brand-1 to-brand-4",
-  },
-  {
     icon: Users,
-    title: "Engineering leadership",
+    title: "Leading teams",
     description:
-      "Day to day I lead engineering teams — setting direction, unblocking people and raising the bar for how software gets built.",
+      "My day job: leading engineering teams — setting priorities, removing blockers and helping people grow.",
     color: "from-brand-2 to-brand-1",
   },
   {
-    icon: ShieldCheck,
-    title: "Quality is a feature",
+    icon: Bug,
+    title: "Testing background",
     description:
-      "A QA background means tests, edge cases and reliability are designed in from day one, not bolted on at the end.",
+      "I started in testing, so I still think about how things break before I think about how they work.",
     color: "from-brand-3 to-brand-2",
   },
   {
-    icon: Layers,
-    title: "End to end",
+    icon: Lightbulb,
+    title: "Problems first",
     description:
-      "Design, code, infrastructure, deployment. Every project here went from a blank repo to a live site.",
+      "My side projects start from problems I've run into, not from a technology I wanted to try.",
     color: "from-brand-5 to-brand-4",
+  },
+  {
+    icon: Sparkles,
+    title: "Curious about AI",
+    description: "I use AI in my own projects to see where it actually helps and where it doesn't.",
+    color: "from-brand-1 to-brand-4",
   },
 ];
 
@@ -40,13 +39,12 @@ export function Principles() {
       <div className="bg-grid fade-mask absolute inset-0 -z-10 opacity-60" aria-hidden="true" />
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
-          eyebrow="Operating system"
+          eyebrow="About"
           title={
             <>
-              How I <span className="text-gradient animate-gradient-x">build</span>
+              How I <span className="text-gradient animate-gradient-x">work</span>
             </>
           }
-          description="The principles behind how I work — with my team and on my own projects."
         />
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

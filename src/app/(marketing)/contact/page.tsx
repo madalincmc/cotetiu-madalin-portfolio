@@ -47,11 +47,11 @@ export default function ContactPage() {
             {"// "}Contact
           </p>
           <h1 className="text-5xl font-bold tracking-tight text-balance sm:text-7xl">
-            Let&apos;s build <span className="text-gradient animate-gradient-x">something</span>.
+            Get in <span className="text-gradient animate-gradient-x">touch</span>.
           </h1>
           <p className="text-muted-foreground mt-5 text-lg text-pretty sm:text-xl">
-            Have a project idea, a role, or just want to talk shop? Reach out
-            directly.
+            Questions, feedback on a project, or want to talk about engineering, testing or AI?
+            Email or LinkedIn works best.
           </p>
         </RevealOnScroll>
 

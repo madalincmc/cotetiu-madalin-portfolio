@@ -15,12 +15,11 @@ export function FinalCta() {
             {"// "}Get in touch
           </p>
           <h2 className="mx-auto max-w-3xl text-4xl font-bold tracking-tight text-balance sm:text-6xl">
-            Have an idea worth building?{" "}
-            <span className="text-gradient animate-gradient-x">Let&apos;s talk.</span>
+            Want to get <span className="text-gradient animate-gradient-x">in touch?</span>
           </h2>
           <p className="text-muted-foreground mx-auto mt-5 max-w-xl text-lg text-pretty">
-            An idea, a team that needs leading, or a site that has to work flawlessly — I&apos;m one
-            message away.
+            Questions about a project, something you read here, or just want to talk about testing,
+            leadership or AI — send me a message.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             <Button

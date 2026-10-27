@@ -18,10 +18,10 @@ export function FeaturedProjects() {
         eyebrow="Portfolio"
         title={
           <>
-            Things I&apos;ve <span className="text-gradient animate-gradient-x">built</span>
+            Side <span className="text-gradient animate-gradient-x">projects</span>
           </>
         }
-        description="A few recent projects, from websites and web apps to tools for developers and testers — each one built and deployed end to end."
+        description="Things I built in my spare time: tools for testers and developers, a few apps and a couple of websites."
         action={
           <Link
             href="/projects"

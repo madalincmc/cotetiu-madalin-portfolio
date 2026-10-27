@@ -73,10 +73,7 @@ export function HeroTerminal({ projects }: { projects: TerminalProject[] }) {
 
         {finished ? (
           <>
-            <p className="text-muted-foreground mt-4">
-              {projects.length} projects online ·{" "}
-              <span className="text-brand-5">next one in progress…</span>
-            </p>
+            <p className="text-muted-foreground mt-4">{projects.length} projects</p>
             <p className="mt-3">
               <span className="text-brand-3">➜</span> <span className="text-brand-2">~</span>{" "}
               <span
