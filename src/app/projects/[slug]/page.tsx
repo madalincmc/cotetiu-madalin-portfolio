@@ -8,6 +8,7 @@ import { GithubIcon } from "@/components/icons/brand-icons";
 import { ProjectGallery } from "@/components/projects/gallery/project-gallery";
 import { Pre } from "@/components/mdx/pre";
 import { AuroraBackground } from "@/components/motion/aurora";
+import { HeroScene } from "@/components/motion/hero-scene";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import { JsonLd } from "@/components/seo/json-ld";
 import { categoryStyles } from "@/lib/category-styles";
@@ -71,6 +72,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
       <header className="relative isolate overflow-hidden">
         <AuroraBackground />
+        <HeroScene textEdge="20rem" />
         <RevealOnScroll className="mx-auto max-w-5xl px-6 pt-14 pb-12 sm:pt-20">
           <Link
             href="/projects"

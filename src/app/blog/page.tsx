@@ -5,6 +5,7 @@ import { POST_CATEGORIES } from "@/lib/content/schemas";
 import { PostCard } from "@/components/blog/post-card";
 import { FilterBar } from "@/components/filter-bar";
 import { AuroraBackground } from "@/components/motion/aurora";
+import { HeroScene } from "@/components/motion/hero-scene";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { siteConfig } from "@/lib/site-config";
@@ -48,6 +49,7 @@ export default async function BlogIndexPage({
     <>
       <section className="relative isolate overflow-hidden">
         <AuroraBackground />
+        <HeroScene textEdge="7.5rem" />
         <RevealOnScroll className="mx-auto max-w-6xl px-6 pt-20 pb-12 sm:pt-28">
           <p className="text-brand-2 mb-4 font-mono text-xs tracking-[0.2em] uppercase">
             {"// "}Blog

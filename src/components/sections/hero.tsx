@@ -3,6 +3,7 @@ import { ArrowRight, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GithubIcon, LinkedinIcon } from "@/components/icons/brand-icons";
 import { AuroraBackground } from "@/components/motion/aurora";
+import { HeroScene } from "@/components/motion/hero-scene";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import { HeroTerminal } from "@/components/sections/hero-terminal";
 import { getAllProjects, projectSlug } from "@/lib/content/projects";
@@ -26,6 +27,7 @@ export function Hero() {
   return (
     <section className="relative isolate overflow-hidden">
       <AuroraBackground />
+      <HeroScene />
       <div className="mx-auto grid max-w-6xl items-center gap-14 px-6 pt-20 pb-24 sm:pt-28 lg:grid-cols-[1.15fr_0.85fr] lg:pb-32">
         <RevealOnScroll className="space-y-8">
           <Link

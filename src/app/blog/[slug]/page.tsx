@@ -7,6 +7,7 @@ import { PostCard, formatPostDate } from "@/components/blog/post-card";
 import { MdxImage } from "@/components/mdx/mdx-image";
 import { Pre } from "@/components/mdx/pre";
 import { AuroraBackground } from "@/components/motion/aurora";
+import { HeroScene } from "@/components/motion/hero-scene";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import { JsonLd } from "@/components/seo/json-ld";
 import { postCategoryStyles } from "@/lib/category-styles";
@@ -75,6 +76,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       <header className="relative isolate overflow-hidden">
         <AuroraBackground />
+        <HeroScene textEdge="22.5rem" />
         <RevealOnScroll className="mx-auto max-w-3xl px-6 pt-14 pb-10 sm:pt-20">
           <Link
             href="/blog"

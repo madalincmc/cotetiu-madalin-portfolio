@@ -300,6 +300,24 @@
   }
 }
 
+/* Keeps the live hero scene off page text: past the text column on wide screens, dimmed behind it
+   on narrow ones, and always fading out before the header ends. */
+@utility hero-scene-clear {
+  opacity: 0.3;
+  mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+  @media (min-width: 64rem) {
+    opacity: 1;
+    mask-image:
+      linear-gradient(to bottom, black 55%, transparent 100%),
+      linear-gradient(
+        to right,
+        transparent calc(50% + var(--hero-text-edge)),
+        black calc(50% + var(--hero-text-edge) + 12rem)
+      );
+    mask-composite: intersect;
+  }
+}
+
 @utility spotlight {
   position: relative;
   &::after {
