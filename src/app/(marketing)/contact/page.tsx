@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Mail, ArrowUpRight } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons/brand-icons";
 import { AuroraBackground } from "@/components/motion/aurora";
+import { HeroScene } from "@/components/motion/hero-scene";
 import { RevealOnScroll } from "@/components/motion/reveal-on-scroll";
 import { SpotlightCard } from "@/components/motion/spotlight-card";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -41,6 +42,7 @@ export default function ContactPage() {
   return (
     <div className="relative isolate overflow-hidden">
       <AuroraBackground />
+      <HeroScene textEdge="13.5rem" />
       <div className="mx-auto max-w-6xl px-6 pt-20 pb-24 sm:pt-28">
         <RevealOnScroll className="max-w-3xl">
           <p className="text-brand-2 mb-4 font-mono text-xs tracking-[0.2em] uppercase">
