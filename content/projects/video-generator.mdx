@@ -1,6 +1,6 @@
 ---
 title: Video Generator
-description: Type a prompt and get a short video or a live website animation. Claude Code writes the three.js scene, checks its own frames, and your GPU does the rendering.
+description: Type a prompt and get an MP4 video or a live website animation. Claude Code writes the three.js scene and checks its own frames, at no cost beyond your existing subscription.
 category: AI
 technologies:
   - three.js
@@ -33,35 +33,51 @@ featured: true
 publishedAt: 2026-11-03
 ---
 
-A command-line tool that turns a text prompt into a short video, or into a live animation for a website. There are no image or video models and no stock assets involved: Claude Code writes everything on screen as three.js code, and your own GPU renders it. It needs no extra API keys and runs on an existing Claude Code plan.
+Type a prompt and get either an MP4 video or a live animation for a website. There are no image or video models, extra API keys or stock assets involved: Claude Code writes every scene as three.js code, and your own GPU does the rendering.
 
-The wave in the header of this page is its first real use.
+The main strength is what it doesn't need. You use only what you already have, Claude Code and your own machine, so there's no additional cost. It was built and measured on a basic Claude Code subscription, and the wave in the header of this page is its first real use.
 
-## Features
+## Two separate outputs
 
-- **Prompt to MP4**: one command produces a video, in landscape or vertical format depending on what you ask for
-- **Live website animations**: `/hero` builds a single file containing the scene and three.js, which runs on the visitor's GPU instead of playing a recording
-- **Self-review**: Claude renders a contact sheet of sample frames, looks at it, and fixes the code for up to three rounds before the final output
-- **Reproducible renders**: scenes run on a virtual clock with seeded randomness, and two renders of the same scene came out byte-identical
-- **No outside assets**: a render fails if a scene tries to load anything from outside the local machine
+**MP4 video** (`npm run video`) gives you a file to post, share or edit, such as social clips and shorts. It runs once on your machine, and viewers just watch the file.
 
-## How it works
+**Live website animation** (`npm run hero`) gives you one JavaScript file containing the scene and three.js. It runs on each visitor's GPU, so it stays sharp at any size, follows the page's light or dark theme, and can react to the cursor.
 
-**Video** runs the scene in headless Chrome, draws each frame on the GPU, and pipes the frames to ffmpeg. An 8-second 1080p clip took about 9 seconds to render on a laptop with an RTX 4050. Most of the wait is Claude writing and refining the scene, which took 7 to 8 minutes for the two full videos I measured.
+## How the skills work
 
-**Live animations** have to behave on a real page, so each build has to pass checks before it's considered finished:
+A skill is a set of written instructions that Claude Code follows when you call it. There's one for each output, `/video` and `/hero`. You can run either from the terminal for a single generation, or inside Claude Code to keep asking for changes.
 
-- **Speed**: a median frame under 12 ms at 1080p, measured on a laptop's integrated GPU rather than the fast one. The wave on this site takes 1.3 ms
-- **Size**: under 250 KB gzipped. The wave is 134 KB, including three.js
-- **Transparency**: most of the frame has to stay see-through, so the page shows behind it
-- **Long sessions**: it has to look the same after an hour on screen, which catches anything that drifts over time
+Both follow the same idea, with Claude reviewing its own work before finishing:
+
+- **Plan**: choose the format, palette and motion
+- **Write**: create the whole scene as three.js code, with nothing downloaded
+- **Check**: render sample frames, look at them, and fix the code, for up to three rounds
+- **Finish**: produce the final output and report anything it couldn't achieve
+
+They differ in what they check and how they finish.
+
+`/video` asks whether the subject is recognizable, well framed and reaches an ending. Then headless Chrome draws every frame on the GPU, and ffmpeg encodes the MP4. An 8-second 1080p clip renders in about 10 seconds on a laptop with an RTX 4050, and renders of the same scene came out byte-identical.
+
+`/hero` asks whether text stays readable in dark, light and phone views, and after an hour on screen. The build also has to pass these checks, measured on a laptop's integrated GPU rather than the fast one:
+
+- **Speed**: a median frame under 12 ms at 1080p. The wave on this site takes 1.3 ms
+- **Size**: under 250 KB gzipped, including three.js. The wave is 134 KB
+- **Transparency**: the page has to show through, with no more than half the frame fully opaque
+- **Long sessions**: it has to look the same after an hour, which catches anything that drifts over time
 - **Security**: it's tested under a strict Content Security Policy, which catches anything a locked-down site would block
 
-The animation also resizes with the page, pauses when off-screen, shows a still frame for visitors who prefer reduced motion, and lowers its resolution on slow devices. If WebGL isn't available, it does nothing and the page stays as it was.
+On the page, the animation resizes with its container, pauses when off-screen, shows a still frame for visitors who prefer reduced motion, and lowers its resolution on slow devices. If WebGL isn't available, it does nothing and the page stays as it was.
 
 ## What it costs
 
-There's no per-video charge, but each run uses Claude Code plan limits. The measured runs used 1.4 to 1.6 million tokens per video and about 0.9 million for the live animation, mostly low-cost cache reads. One video used an estimated 10 to 13% of a session limit.
+**No additional cost.** There's no extra AI service, image or video model, API key, or per-video charge. Generating draws on the usage your Claude Code plan already includes, and everything after that uses no Claude at all:
+
+- **Generating an MP4 video**: about 1.4 to 1.6 million tokens and 7 to 8 minutes in the two runs measured
+- **Generating a live animation**: about 0.4 to 0.9 million tokens and 2 to 3.5 minutes in the two runs measured
+- **Re-rendering or rebuilding an existing scene**: your machine only
+- **Visitors viewing a live animation**: no AI involved, just your normal hosting
+
+On the basic subscription, one video used an estimated 10 to 13% of a session limit and about 1% of the weekly limit, so roughly 7 to 10 similar videos fit in a session window. Most of those tokens are cached context, which counts for far less than new work. These are a handful of measured runs rather than an average, so results vary by prompt.
 
 ## Limitations
 

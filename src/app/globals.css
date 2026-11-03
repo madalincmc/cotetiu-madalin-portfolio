@@ -176,10 +176,12 @@
     background-color: transparent;
     padding: 0;
   }
-  .prose code::before,
-  .prose code::after {
-    content: none;
-  }
+}
+
+/* Unlayered so it beats the quotes the typography plugin adds from its utilities layer. */
+.prose code::before,
+.prose code::after {
+  content: none;
 }
 
 /* Animations and decorative effects: animated gradient text, the aurora glow behind hero
