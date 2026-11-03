@@ -1,0 +1,77 @@
+---
+title: Video Generator
+description: Type a prompt and get a short video or a live website animation. Claude Code writes the three.js scene, checks its own frames, and your GPU does the rendering.
+category: AI
+technologies:
+  - three.js
+  - WebGL
+  - Claude Code
+  - Node.js
+  - Puppeteer
+  - ffmpeg
+  - esbuild
+coverImage: /images/projects/video-generator/cover.png
+gallery:
+  - path: /images/projects/video-generator/balloon.mp4
+    alt: A striped hot air balloon drifting over misty mountains as the sun rises, generated from a one-line prompt
+    type: video
+  - path: /images/projects/video-generator/paper-boat.mp4
+    alt: A paper boat riding huge waves at night with lightning flashes, in vertical format
+    type: video
+  - path: /images/projects/video-generator/dot-wave.mp4
+    alt: A rolling wave of violet, pink and cyan dots, the live animation in this site's headers
+    type: video
+  - path: /images/projects/video-generator/workflow.png
+    alt: "Workflow: describe it, Claude writes a scene, checks rendered frames and fixes the code, then builds a video or a live website animation"
+  - path: /images/projects/video-generator/self-review.jpg
+    alt: The 12-frame contact sheet Claude reviewed for the balloon video, with the sky moving from violet to gold
+  - path: /images/projects/video-generator/hero-checks.jpg
+    alt: The contact sheet for the dot wave animation, in dark theme, light theme and phone width, including a frame from after an hour on screen
+  - path: /images/projects/video-generator/live-header.png
+    alt: The dot wave running behind the homepage header of this portfolio
+featured: true
+publishedAt: 2026-11-03
+---
+
+A command-line tool that turns a text prompt into a short video, or into a live animation for a website. There are no image or video models and no stock assets involved: Claude Code writes everything on screen as three.js code, and your own GPU renders it. It needs no extra API keys and runs on an existing Claude Code plan.
+
+The wave in the header of this page is its first real use.
+
+## Features
+
+- **Prompt to MP4**: one command produces a video, in landscape or vertical format depending on what you ask for
+- **Live website animations**: `/hero` builds a single file containing the scene and three.js, which runs on the visitor's GPU instead of playing a recording
+- **Self-review**: Claude renders a contact sheet of sample frames, looks at it, and fixes the code for up to three rounds before the final output
+- **Reproducible renders**: scenes run on a virtual clock with seeded randomness, and two renders of the same scene came out byte-identical
+- **No outside assets**: a render fails if a scene tries to load anything from outside the local machine
+
+## How it works
+
+**Video** runs the scene in headless Chrome, draws each frame on the GPU, and pipes the frames to ffmpeg. An 8-second 1080p clip took about 9 seconds to render on a laptop with an RTX 4050. Most of the wait is Claude writing and refining the scene, which took 7 to 8 minutes for the two full videos I measured.
+
+**Live animations** have to behave on a real page, so each build has to pass checks before it's considered finished:
+
+- **Speed**: a median frame under 12 ms at 1080p, measured on a laptop's integrated GPU rather than the fast one. The wave on this site takes 1.3 ms
+- **Size**: under 250 KB gzipped. The wave is 134 KB, including three.js
+- **Transparency**: most of the frame has to stay see-through, so the page shows behind it
+- **Long sessions**: it has to look the same after an hour on screen, which catches anything that drifts over time
+- **Security**: it's tested under a strict Content Security Policy, which catches anything a locked-down site would block
+
+The animation also resizes with the page, pauses when off-screen, shows a still frame for visitors who prefer reduced motion, and lowers its resolution on slow devices. If WebGL isn't available, it does nothing and the page stays as it was.
+
+## What it costs
+
+There's no per-video charge, but each run uses Claude Code plan limits. The measured runs used 1.4 to 1.6 million tokens per video and about 0.9 million for the live animation, mostly low-cost cache reads. One video used an estimated 10 to 13% of a session limit.
+
+## Limitations
+
+- **Stylized, not photorealistic**: everything is procedural 3D, so real people or live footage become an interpretation
+- **No sound**: videos are silent for now
+- **Reviewed by stills**: Claude checks sampled frames rather than playback, so motion is worth checking by eye
+- **Tested on Windows only**: and live animations haven't been measured on real phones
+
+## Use cases
+
+- Short clips for social media, without paying for a video model
+- Animated website headers that follow the page's light or dark theme
+- Trying out visual ideas quickly, then editing the generated scene code by hand
