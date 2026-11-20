@@ -1,0 +1,84 @@
+---
+title: Parallax Site Generator
+description: Type a brief and get a complete scroll-driven three.js website in one of four styles. Claude Code writes every scene, word and layout as code, with no image models, downloaded assets or extra costs.
+category: AI
+technologies:
+  - Next.js
+  - three.js
+  - WebGL
+  - Claude Code
+  - TypeScript
+  - Tailwind CSS
+  - Lenis
+  - Puppeteer
+githubUrl: https://github.com/madalincmc/parallax-site-generator
+liveUrl: https://cotetiu-madalin-parallax-portfolio.vercel.app
+coverImage: /images/projects/parallax-site/cover.png
+gallery:
+  - path: /images/projects/parallax-site/film-balloon.mp4
+    alt: "Film style: a career told as one hot air balloon flight, from violet pre-dawn to a lantern-lit landing"
+    type: video
+  - path: /images/projects/parallax-site/editorial.mp4
+    alt: "Editorial style: the same career as a studio journal, with steel gauge blocks turning in the margin"
+    type: video
+  - path: /images/projects/parallax-site/signal.mp4
+    alt: "Signal style: the same career as a control room, with a lime scan passing through an obsidian artifact"
+    type: video
+  - path: /images/projects/parallax-site/frame-hardwick.mp4
+    alt: "Frame style: the Hardwick furniture workshop in photographs, growing from small frames to the full screen"
+    type: video
+  - path: /images/projects/parallax-site/film-barbell.mp4
+    alt: "Film style for another person: an IP protection engineer's career as a barbell loaded plate by plate"
+    type: video
+  - path: /images/projects/parallax-site/editorial-work.jpg
+    alt: The Editorial work index, with serif headings and generated cover art for each project
+  - path: /images/projects/parallax-site/signal-work.jpg
+    alt: Signal case-study cells with generated covers and a live clock in the menu bar
+featured: true
+publishedAt: 2026-11-14
+---
+
+Type a brief and get a finished scroll-driven website: a 3D world the camera travels through as you scroll, the copy, the layout and the menu. Claude Code is the only AI involved. It writes every scene, every word and every layout as code, with no image models, downloaded assets or API keys.
+
+It started as a follow-up to the [Video Generator](/projects/video-generator). If Claude can write a three.js scene and check its own frames, it can also write a whole site around one, and keep it fast enough for a visitor's laptop.
+
+## Four styles
+
+The style is the first decision. It sets the layout, the menu and loader, the type, how much of the page is pinned, and what the 3D does.
+
+- **Film**: one continuous take. A 3D world fills the screen and sections pin and scrub like scenes in a single shot. My own [balloon flight](https://cotetiu-madalin-parallax-portfolio.vercel.app) is one of these
+- **Editorial**: a studio's journal on a paper background, with serif headings, numbered sections and one sculptural object turning in the margin ([live](https://madalin-cotetiu-editorial-portfolio.vercel.app))
+- **Signal**: a control room for a brand. Dark, with one electric accent, live readouts and a dramatic object at the center that a scan passes through ([live](https://madalin-cotetiu-signal-portfolio.vercel.app))
+- **Frame**: for photographs. Pictures arrive small and grow to fill the screen, then settle into numbered full-screen runs and carousels ([live demo for Hardwick](https://hardwick-frame-demo.vercel.app))
+
+The same facts and projects became three completely different sites for me, and it has also built sites for two other people, one of them in Romanian.
+
+## How it works
+
+`npm run create` opens a setup page in the browser. You describe the project, pick a style and, optionally, point it at your existing site's public GitHub repo so it can reuse your colors, fonts and wording. Then you choose sections, theme and art direction, and press **Create site**. Answering the setup page uses none of your Claude usage.
+
+From there, the `/site` skill plans the story and the 3D world, then calls one skill per section: hero, story, work, process, proof, FAQ, closer and others. Each section is two files, the page content and its part of the 3D.
+
+The page has **one canvas, one scene and one camera**. Each section adds an act to that scene, and the engine eases the camera, a shared object and the mood between acts as you scroll. That's what makes it read as one continuous piece instead of a stack of embedded animations.
+
+## Checks
+
+`npm run check` builds the site, opens it in headless Chrome on the laptop's integrated GPU, and fails on:
+
+- **Speed**: frames over 14 ms median or 24 ms at the 95th percentile
+- **Size**: more than 600 KB of code and fonts
+- **Fallbacks**: text lost without JavaScript, without WebGL or with reduced motion
+- **Layout**: sideways scrolling, or text off screen, overlapping or under the menu
+- **Privacy**: any request that leaves the site
+
+Then it writes a contact sheet per section, and Claude reads the stills, critiques them and fixes the seams before it finishes.
+
+## What it costs
+
+**No additional cost.** Generating draws on the usage your Claude Code plan already includes. In the measured runs, a site took 4 to 24 minutes and 2.4 to 5.4 million tokens, with the first Film site being the longest.
+
+## Limitations
+
+- **Procedural, not photographic**: outside Frame, generated cover art stands in for project images
+- **Reviewed by stills**: Claude checks sampled frames, so someone still has to scroll through it
+- **One site per copy**: each generated site lives on its own branch or repo
