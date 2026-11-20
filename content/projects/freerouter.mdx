@@ -1,0 +1,68 @@
+---
+title: FreeRouter
+description: A Windows desktop app that pools the free tiers of Gemini, Groq, NVIDIA NIM and OpenRouter behind one smart router, with a chat UI and an OpenAI-compatible gateway for coding tools.
+category: AI
+technologies:
+  - Electron
+  - React
+  - TypeScript
+  - Fastify
+  - SQLite
+  - Tailwind CSS
+  - Zustand
+  - Vitest
+coverImage: /images/projects/freerouter/cover.png
+gallery:
+  - path: /images/projects/freerouter/models.png
+    alt: "The Models screen: a live registry of free models with capability tags, quality, p50 latency and today's usage"
+  - path: /images/projects/freerouter/gateway.png
+    alt: The Gateway screen, with the local endpoint, its token and copy-paste setup for Cline, Roo Code, Continue and Aider
+  - path: /images/projects/freerouter/providers.png
+    alt: The Providers and keys screen, where keys are tested before saving and only ever shown masked
+  - path: /images/projects/freerouter/settings.png
+    alt: The Settings screen, with routing weights, timeouts, fallback and stickiness
+featured: true
+publishedAt: 2026-11-20
+---
+
+Many free LLM tiers, one endpoint, zero bills. FreeRouter is a Windows desktop app that pools the free tiers of hosted LLM providers behind one smart router. It gives you a chat window, and gives your coding tools an OpenAI-compatible endpoint on your own machine.
+
+OpenRouter, Groq, Google Gemini and NVIDIA NIM all give away real LLM capacity for free, but each has its own rate limits, daily caps and quirks, and models disappear without notice. Juggle them by hand and you hit a `429` halfway through your work. FreeRouter juggles them for you.
+
+## How routing works
+
+FreeRouter keeps a live registry of every free model across your providers, synced every 6 hours, with capability tags, quality scores, latency and today's usage. Every request then goes through four steps:
+
+- **Filter**: only models that are free, healthy, capable of the request and within quota
+- **Score**: quality 55%, reliability 20%, speed 15% and remaining quota 10%
+- **Diversify**: the top five, with at most two from the same provider
+- **Fall back**: try them in order until one answers
+
+When a model is rate-limited, out of quota, retired or slow, FreeRouter moves to the next one before the first token reaches you. You can see which models were tried, and why.
+
+Every failure is classified and remembered. A `429` cools the model down until its limit resets without counting against its reliability. Server errors and timeouts do count, and three in a row bench the model for five minutes. A model the account can't use at all is set aside for a week.
+
+## Two front doors
+
+**Chat** renders Markdown and code, shows which model answered, and lets you regenerate with another model. If a model fails halfway through a reply, you can continue the same answer with a different one.
+
+**The gateway** runs on `127.0.0.1:4141/v1`. Point Cline, Roo Code, Continue, Aider or any OpenAI SDK at it and use `auto`, `auto:coding`, `auto:fast`, `auto:reasoning` or `auto:long`, pin an exact model, or define your own chain of models. Each response says which model answered in its headers, and a coding session stays on the model that's working, until it isn't.
+
+## Security and privacy
+
+- **Keys never leave your machine**: they're encrypted with Windows DPAPI and decrypted only at call time. The UI only ever sees masked values
+- **The gateway is local-only**: it listens on `127.0.0.1`, requires a token, and blocks browser origins and DNS rebinding
+- **Prompts aren't logged**: the request log keeps models, timings and status only
+- **Private mode**: excludes providers whose free tier may train on your prompts, for chat, the gateway or both
+
+## How it's built
+
+The router, quota tracker, model registry and gateway are plain TypeScript with no Electron, and a test enforces that. That keeps them testable in Node against a real fake HTTP provider that scripts failures such as `429`s, mid-stream breaks and slow first tokens. There are 200 tests.
+
+Providers are data, not code. Each one is a profile with its limits, key validation and request quirks, so adding a provider rarely needs new logic.
+
+## Limitations
+
+- **Windows only**, and the installer isn't code-signed yet, so SmartScreen asks you to confirm
+- **Free tiers change often**: Cerebras and Mistral are off by default because they now require billing
+- **Not for Claude Code**, which needs the Anthropic API rather than an OpenAI-compatible one
